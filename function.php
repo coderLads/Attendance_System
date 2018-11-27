@@ -664,4 +664,34 @@ function getEventBefore($eventId, $studentId){
     return($eventQuery);
 }
 
+// this function sorts multidimensional arrays by one of their subkeys
+// used for sorting the main table by various indexes
+// could easily be used for other things with some tweaking of the hardcoded 'statusname'
+function subval_sort($a, $subkey, $result) {
+
+    //dynamic variable naming to ensure the result array is named 'subkey'_array
+    $temp_varname = $result . "_array";
+    $$temp_varname = array();
+
+    //goes through the array, $k = the key, $v = value in the array
+    foreach($a as $k=>$v) {
+        $b[$k] = $v[$subkey];
+    }
+    
+    if (!empty($b)) {
+        if ($subkey == 'statusname') {
+            asort($b);
+        }
+        foreach($b as $key=>$val) {
+            if ($val == $result) {
+                array_push($$temp_varname, $a[$key]);
+            }
+        }
+        if ($subkey == 'statusname') {
+            asort($$temp_varname);
+        }
+        return $$temp_varname;
+    }
+}
+
 ?>
