@@ -164,7 +164,10 @@ form {
 }
 
 .late_time {
-    height: 14px;
+    height: 24px;
+    padding: 0px;
+    margin: 0px;
+    margin-left: -5px;
 }
 
 body {
@@ -182,6 +185,26 @@ body {
 body.single-user {
     padding: 2%;
     background-color: #4A4747;
+}
+
+.tablebutton {
+    width: 26px;
+    height: 26px;
+    font-size: 13px;
+    text-align: center;
+    background: lightgray;
+    border: 1px solid darkgrey;
+    margin-right: 2px;
+}
+
+.tablebutton:hover {
+    border: 1px solid #7B7A7A;
+    background: #919191;
+    transition: all .25s ease;
+}
+
+.l_button {
+    width: 46px
 }
 
 .groupHeader {
@@ -655,9 +678,10 @@ div.report-container {
 }
 
 .ui-timepicker-input {
-    width: 80px;
+    width: 84px;
+    border: 1px solid darkgrey;
+    text-align: center;
 }
-
 
 /* View reports charts */
 
