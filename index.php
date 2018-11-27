@@ -8,10 +8,10 @@
     <?php 
         // fetch times from db for timepickers
         require_once('header.php');
-      	$TimeQuery = $db_server->query("SELECT starttime,endtime FROM globals");
-		$TimeQuery = $TimeQuery->fetch_array();
-		$globalstarttime = new DateTime($TimeQuery['starttime']);
-		$globalendtime = new DateTime($TimeQuery['endtime']);
+      	$globalsQuery = $db_server->query("SELECT * FROM globals");
+		$globalsQuery = $globalsQuery->fetch_array();
+		$globalstarttime = new DateTime($globalsQuery['starttime']);
+		$globalendtime = new DateTime($globalsQuery['endtime']);
 		$globalstarttime = $globalstarttime->format("H:iA");
 		$globalendtime = $globalendtime->format("H:iA");
 	?>
@@ -182,11 +182,8 @@
 	    $current_users_result = $db_server->query($studentquery);
 
 	    // fetch and setup dates
-        $globals_query = "SELECT * FROM globals";
-        $globals_result = $db_server->query($globals_query);
-        $globals_data = $globals_result->fetch_array();
-        $getendDate = new DateTime($globals_data['enddate']);
-        $getstartDate = new DateTime($globals_data['startdate']);
+        $getendDate = new DateTime($globalsQuery['enddate']);
+        $getstartDate = new DateTime($globalsQuery['startdate']);
         date_add($getstartDate, date_interval_create_from_date_string('1 day'));
         date_add($getendDate, date_interval_create_from_date_string('-1 day'));
         $startDate = $getstartDate->format('Y-m-d H:i:s');
@@ -324,21 +321,19 @@
         // Creates the "Check Out" Buttons at the end of the day
         $phpdatetime = new dateTime();
         $current_time = $phpdatetime->format('h:i a');
-        //Query for globals
-        $globalsresult = $db_server->query("SELECT * FROM globals");
-        while ($list = mysqli_fetch_assoc($globalsresult)){
-            $pretty_end_time = new DateTime($list['endtime']);
 
-            // check if time is 20 min before globals.endtime
-            $co_start_time = date($list['endtime']);
-            $co_start = strtotime ( '-20 minute' , strtotime ( $co_start_time ) ) ;
-            $co_start = date ( 'h:i a' , $co_start );
+        $pretty_end_time = new DateTime($globalsQuery['endtime']);
 
-            // check if time is 20 min after globals.endtime
-            $co_end_time = date($list['endtime']);
-            $co_end = strtotime ( '+20 minute' , strtotime ( $co_end_time ) ) ;
-            $co_end = date ( 'h:i a' , $co_end );
-        }
+        // check if time is 20 min before globals.endtime
+        $co_start_time = date($globalsQuery['endtime']);
+        $co_start = strtotime ( '-20 minute' , strtotime ( $co_start_time ) ) ;
+        $co_start = date ( 'h:i a' , $co_start );
+
+        // check if time is 20 min after globals.endtime
+        $co_end_time = date($globalsQuery['endtime']);
+        $co_end = strtotime ( '+20 minute' , strtotime ( $co_end_time ) ) ;
+        $co_end = date ( 'h:i a' , $co_end );
+        
 
         $date1 = DateTime::createFromFormat('h:i a', $current_time);
         $date2 = DateTime::createFromFormat('h:i a', $co_start);
@@ -559,10 +554,7 @@
                         // setup contextual coloring variables
                         $cTime = new DateTime();
                         $mReturn= new DateTime($latestdata['returntime']);
-                        $globals_query = "SELECT starttime FROM globals";
-                        $globals_result = $db_server->query($globals_query);
-                        $globals_data = $globals_result->fetch_array();
-                        $ttStart = new DateTime($globals_data['starttime']);
+                        $ttStart = new DateTime($globalsQuery['starttime']);
                         $currStatus = $latestdata['statusname'];
                         if ($cTime > $ttStart && $currStatus == 'Not Checked In' || $cTime > $mReturn && $currStatus == "Offsite" || $cTime > $mReturn && $currStatus == "Late" || $cTime > $mReturn && $currStatus == "Independent Study" || $cTime > $mReturn && $currStatus == "Field Trip") {
                             ?>
@@ -597,7 +589,7 @@
                                 if ($latestdata['statusname'] != 'Checked Out' && $latestdata['statusname'] != 'Absent' && $latestdata['statusname'] != 'Independent Study') {
                                     ?>
                                         <form action='<?php echo basename($_SERVER['PHP_SELF']); ?>' method='post'>
-                                            <input type='submit' value='Check&nbsp;Out' class='p_button' name='co_button'>
+                                            <input type='submit' value='Check&nbsp;Out' class='tablebutton co_button p_button' name='co_button'>
                                             <input type='hidden' name='co_bstudent' value='<?php echo $latestdata['studentid']; ?>'>
                                         </form>
                                     <?php   

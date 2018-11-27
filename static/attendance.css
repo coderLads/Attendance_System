@@ -158,9 +158,8 @@ form {
 }
 
 .status_col {
-    min-width: 380px;
+    min-width: 200px;
     max-width: 400px;
-    padding: 5px 5px 5px inherit !important;
 }
 
 .late_time {
@@ -205,6 +204,10 @@ body.single-user {
 
 .l_button {
     width: 46px
+}
+
+.co_button {
+    width: 80px;
 }
 
 .groupHeader {
