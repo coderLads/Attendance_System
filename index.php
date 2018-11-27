@@ -4,6 +4,7 @@
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 	<meta name="HandheldFriendly" content="true" />
+    <meta charset="utf-8"/>
     <?php 
         // fetch times from db for timepickers
         require_once('header.php');
@@ -359,6 +360,16 @@
                 <?php 
             } 
         }
+
+        // clumsey way to delete form data. Yeah, I know.
+        if(ispost()){
+			?> 
+                <script>
+                    window.location = window.location.href;
+                </script>
+            <?php
+			die;
+		}
 
         // fetch all recent student data for main table
 		$studentcount = 0;
