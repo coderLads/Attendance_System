@@ -188,15 +188,24 @@ body.single-user {
 
 .tablebutton {
     width: 26px;
+    margin-right: 2px;
+}
+
+.button {
     height: 26px;
     font-size: 13px;
     text-align: center;
     background: lightgray;
     border: 1px solid darkgrey;
-    margin-right: 2px;
 }
 
-.tablebutton:hover {
+.button>a {
+    color: inherit;
+    text-decoration: none;
+
+}
+
+.button:hover {
     border: 1px solid #7B7A7A;
     background: #919191;
     transition: all .25s ease;
@@ -291,29 +300,27 @@ body.single-user {
     top: 0;
 }
 
+#top_header form {
+    display: flex;
+    justify-content: space-around;
+    height: 32px;
+}
+
 #top_header form div {
-    padding: 3px 0.5%;
-    padding-top: 6px;
-    float: left;
-    border-left: 2px solid #484747;
-    height: 25px;
+    border-left: 3px solid lightgrey;
+    text-align: center;
+}
+
+#top_header form div>* {
+    margin-top: 3px;
+}
+
+#top_header form div>*:first-child {
+    margin-left: 10px;
 }
 
 #top_header form div:first-child {
     border-left: none;
-}
-
-#top_header div a {
-    display: block;
-    padding: 0.5em;
-    color: whitesmoke;
-    text-decoration: none;
-    text-align: center;
-}
-
-#top_header div a:hover {
-    text-decoration: none;
-    color: #939393;
 }
 
 #main_table {
@@ -721,30 +728,3 @@ tr.Status_Red:nth-child(odd) {
     text-decoration: none;
     color: black;
 }
-
-
-/*
-.PSCSbtn {
-  font-family: Arial;
-  color: #ffffff;
-  font-size: 10px;
-  background: #8e9091;
-  padding: 5px 5px 5px 5px;
-  text-decoration: none;
-  border: 0.2em solid rgb(124, 124, 124);
-}
-
-.PSCSbtn:hover {
-  background: #5a5b5c;
-  text-decoration: none;
-}
-.PSCSbtn.add {
-margin-top: 0.7em;
-width: 35%
-}
-.PSCSbtn.disabled {
-color: #C1BCBC;
-background: #7D7D7D;
-border: 0.2em solid rgb(150, 146, 146);
-}
-*/

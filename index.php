@@ -424,35 +424,33 @@
 	    <form method='post' action='<?php echo basename($_SERVER['PHP_SELF']); ?>' id='main' >
             <!-- present -->
             <div>
-                <input class="PSCSbtn button" id="present_button" type="submit" value="Present" name="present">
+                <input class="button" id="present_button" type="submit" value="Present" name="present">
             </div>
             <!-- check out -->
             <div>
-                <input class="PSCSbtn" type="submit" value="Check Out" name="checkout" onclick="return confirm('Confirmation: \nAre you sure you want to check out?');">
+                <input class="button" type="submit" value="Check Out" name="checkout" onclick="return confirm('Confirmation: \nAre you sure you want to check out?');">
             </div>
             <!-- offsite -->
-            <div>
-                <span id="cdropdown">
-                    <select id="offlocDropdown" name="offlocDropdown" class="offlocDropdown">
-                        <option value=''>Offsite Location</option>
-                            <?php
-                                // fetch offsite locations for dropdown
-                                $placeget = $db_server->query("SELECT * FROM offsiteloc ORDER BY place ASC");
-                                while ($place_option = $placeget->fetch_assoc()) {
-                                    ?>
-                                        <option value= "<?php echo $place_option['place']; ?> "><?php echo $place_option['place']; ?></option> 
-                                    <?php 
-                                } 
-                            ?>
-                        <option name="Custom" value="Custom" style="background-color:lightgrey;">Custom</option>
-                    </select>
-                </span>
+            <div class="header-form">
+                <select id="offlocDropdown" name="offlocDropdown" class="offlocDropdown">
+                    <option value=''>Offsite Location</option>
+                        <?php
+                            // fetch offsite locations for dropdown
+                            $placeget = $db_server->query("SELECT * FROM offsiteloc ORDER BY place ASC");
+                            while ($place_option = $placeget->fetch_assoc()) {
+                                ?>
+                                    <option value= "<?php echo $place_option['place']; ?> "><?php echo $place_option['place']; ?></option> 
+                                <?php 
+                            } 
+                        ?>
+                    <option name="Custom" value="Custom" style="background-color:lightgrey;">Custom</option>
+                </select>
                 <span id="cdiv"> </span>
                 <input type="text" class="aTextField" name="offtime" placeholder="Return time" id="offtime">
                 <input class="button" type="submit" name="offsite" value="Offsite">
 	        </div>
             <!-- field trip -->
-	        <div>
+	        <div class="header-form">
                 <select name='facilitator'><option value=''>Select Facilitator</option>
                     <?php
                         // populate dropdown with facilitators from db
@@ -467,23 +465,23 @@
                 <input class="button" type="submit" name="fieldtrip" value="Field Trip">
 	        </div>
             <!-- button to go to status view -->
-            <div class="statusview_button">
+            <div class="button statusview_button">
                 <a href="statusview.php">Status View</a>
             </div>
             <!-- button to go to admin page -->
             <?php
                 if (isset($_COOKIE['login'])) {
                     if ($_COOKIE['login'] == $SecureAdminPW || $_COOKIE['login'] == $crypt) {
-                        echo '<div class="admin_button"><a href="a/p/index.php">Admin</a></div>';
+                        echo '<div class="button admin_button"><a href="a/p/index.php">Admin</a></div>';
                     }
                 }
             ?>
             <!-- button to go to view reports -->
-		    <div class="viewreports_button">
+		    <div class="viewreports_button button">
 			    <a href="viewreports.php">View Reports</a>
 		    </div>
             <!-- button to logout -->
-            <div>
+            <div class="button">
                 <a href="secondary_login.php?logout=1">Logout</a>
             </div>
 		</form>
@@ -589,7 +587,7 @@
                                 if ($latestdata['statusname'] != 'Checked Out' && $latestdata['statusname'] != 'Absent' && $latestdata['statusname'] != 'Independent Study') {
                                     ?>
                                         <form action='<?php echo basename($_SERVER['PHP_SELF']); ?>' method='post'>
-                                            <input type='submit' value='Check&nbsp;Out' class='tablebutton co_button p_button' name='co_button'>
+                                            <input type='submit' value='Check&nbsp;Out' class='button tablebutton co_button p_button' name='co_button'>
                                             <input type='hidden' name='co_bstudent' value='<?php echo $latestdata['studentid']; ?>'>
                                         </form>
                                     <?php   
@@ -601,7 +599,7 @@
                         if (($latestdata['statusname'] != 'Present' && $latestdata['statusname'] != 'Absent' && $latestdata['statusname'] != 'Checked Out') || ($day_data < $yesterday)) {
                             ?>
                             <form action='<?php echo basename($_SERVER['PHP_SELF']); ?>' method='post'>
-                                <input type='submit' value='P' class='p_button tablebutton' name='present_button'>
+                                <input type='submit' value='P' class='p_button button tablebutton' name='present_button'>
                                 <input type='hidden' name='present_bstudent' value='<?php echo $latestdata['studentid']; ?>'>
                             </form>
                             <?php
@@ -611,7 +609,7 @@
                         if ($latestdata['statusname'] == 'Not Checked In') {
                             ?>
                                 <form action='<?php echo basename($_SERVER['PHP_SELF']); ?>' method='post'>
-                                    <input class="tablebutton" type='submit' value='A' name='Absent' class='absent_button' >
+                                    <input class="button tablebutton" type='submit' value='A' name='Absent' class='absent_button' >
                                     <input type='hidden' name='absent_student' value='<?php echo $latestdata['studentid']; ?>'>
                                 </form>
                             <?php 
@@ -622,7 +620,7 @@
                             ?>
                                 <!-- Late button with time input next to it -->
                                 <form action='<?php echo basename($_SERVER['PHP_SELF']); ?>' method='post'>
-                                    <input class="tablebutton l_button" id="latebutton" type='submit' value='Late' name='Late'>
+                                    <input class="tablebutton l_button button" id="latebutton" type='submit' value='Late' name='Late'>
                                     <input type='input' name='late_time' placeholder='Expected' class='late_time'>
                                     <input type='hidden' name='late_student' value='<?php echo $latestdata['studentid']; ?>'>
                                 </form>
